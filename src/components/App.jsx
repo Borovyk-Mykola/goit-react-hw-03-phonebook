@@ -4,6 +4,8 @@ import ContactForm from './ContactForm/ContactForm'
 import Filter from './Filter/Filter'
 import { nanoid } from 'nanoid';
 
+const CONTACT_KEY = 'Contact key'
+
 export class App extends React.Component {
   state = {contacts: [
     {id: 'id-1', name: 'Rozie Simpson', number: '459-12-56'},
@@ -11,6 +13,20 @@ export class App extends React.Component {
     {id: 'id-3', name: 'Eden Klements', number: '645-17-79'},
     {id: 'id-4', name: 'Annie Copelsnd', number: '227-91-26'},
     ], filter: '',
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+      if(prevState.contacts !== this.state.contacts)
+      {localStorage.setItem(CONTACT_KEY, JSON.stringify(this.state.contacts))
+    };
+  }
+
+  componentDidMount() {
+    const localContact = JSON.parse(localStorage.getItem(CONTACT_KEY))
+
+    if(localContact) {
+      this.setState({contacts: localContact});
+    }
   }
 
   deleteContact = (contactId) => {
