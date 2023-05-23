@@ -67,7 +67,7 @@ export class App extends React.Component {
   }
 
   render() {
-    const{ contacts, filter } = this.state;
+    const{ filter } = this.state;
     
     return (
     <div
